@@ -19,7 +19,7 @@ const App = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('https://9b7f-182-19-35-177.ngrok-free.app/getemployee');
+      const response = await axios.get('http://localhost:5000/getemployee');
       setEmployees(response.data);
       setTimeout(fetchEmployees, 1000);
     } catch (error) {
@@ -47,7 +47,7 @@ const App = () => {
     };
   
     try {
-      const response = await fetch('https://9b7f-182-19-35-177.ngrok-free.app/addemployee', {
+      const response = await fetch('http://localhost:5000/addemployee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -87,7 +87,12 @@ const App = () => {
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
   };
-  
+  const [currentPage, setCurrentPage] = useState(1);
+    const [employeesPerPage] = useState(5);
+    const indexOfLast = currentPage * employeesPerPage;
+    const indexOfFirst = indexOfLast - employeesPerPage;
+    const currentEmployee = employees.slice(indexOfFirst, indexOfLast);
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
   
 
   return (
@@ -146,7 +151,7 @@ const App = () => {
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee) => (
+          {currentEmployee.map((employee) => (
             <tr key={employee.EmployeeId}>
               <td>{employee.EmployeeId}</td>
               <td>{employee.EmployeeName}</td>
@@ -159,6 +164,13 @@ const App = () => {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+                        {Array.from({ length: Math.ceil(employees.length / employeesPerPage) }, (_, index) => (
+                            <button key={index} onClick={() => paginate(index + 1)}>
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
       </div>
     </div>
   );
