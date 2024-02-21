@@ -19,7 +19,7 @@ const App = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/getemployee');
+      const response = await axios.get('https://backend-nk5m.onrender.com/getemployee');
       setEmployees(response.data);
       setTimeout(fetchEmployees, 1000);
     } catch (error) {
@@ -47,7 +47,7 @@ const App = () => {
     };
   
     try {
-      const response = await fetch('http://localhost:5000/addemployee', {
+      const response = await fetch('https://backend-nk5m.onrender.com/addemployee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
