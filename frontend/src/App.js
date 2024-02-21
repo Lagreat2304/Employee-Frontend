@@ -19,7 +19,7 @@ const App = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('https://backend-nk5m.onrender.com/getemployee');
+      const response = await axios.get('https://9b7f-182-19-35-177.ngrok-free.app/getemployee');
       setEmployees(response.data);
       setTimeout(fetchEmployees, 1000);
     } catch (error) {
@@ -47,7 +47,7 @@ const App = () => {
     };
   
     try {
-      const response = await fetch('https://backend-nk5m.onrender.com/addemployee', {
+      const response = await fetch('https://9b7f-182-19-35-177.ngrok-free.app/addemployee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
